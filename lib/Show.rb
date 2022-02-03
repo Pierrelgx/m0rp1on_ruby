@@ -1,3 +1,7 @@
+require 'bundler'
+Bundler.require
+
+
 class Show
 
     def show_board(board)

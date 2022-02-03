@@ -1,17 +1,9 @@
-require 'bundler'
-Bundler.require
+class Player # on crée la classe Player, ne contient que les infos sur les joueurs (points de vie, nom, attributs etc.)
+  attr_accessor :name, :symbol
 
-class Player
-    attr_accessor :name, :symbol
-    @@all_players = []
-
-    def initialize(name, symbol)
-        @name = gest.chomp
-        @symbol = gest.chomp
-    end
-
-
+  def initialize(symbol = "#")
+    @name = "###"
+    @symbol = symbol
+  end
 
 end
-
-binding.pry

@@ -1,38 +1,57 @@
 class Board
-   
-    attr_accessor :a1, :a2, :a3, :b1; :b2, :b3, :c1, :c2, :c3
-    @@cases_array = []
-
-
-    def initialize
-        a1 = BoardCase.new("A1")
-        a2 = BoardCase.new("A2")
-        a3 = BoardCase.new("A3")
-        b1 = BoardCase.new("B1")
-        b2 = BoardCase.new("B2")
-        b3 = BoardCase.new("B3")
-        c1 = BoardCase.new("C1")
-        c2 = BoardCase.new("C2")
-        c3 = BoardCase.new("C3")
-        @grid = {a1.case_id => a1.value, a2.case_id => a2.value, a3.case_id => a3.value, b1.case_id => b1.value, b2.case_id => b2.value, b3.case_id => b3.value, b3.case_id => b3.value, c1.case_id => c1.value, c2.case_id => c2.value, c3.case_id => c3.value,}
-        @count_turn = 0
-    end
-
+    attr_accessor :boardgame, :game_state_variable
   
-
-    def play_turn(player)
-        puts
-        puts "Quelle case veux-tu jouer mon bichon ?"
-        print ">"
-        choice = gets.chomp
-        @grid[choice]= "#{player.player_value}"
-        @count_turn = @count_turn + 1
+    def initialize #on crée la structure du board
+      @boardgame = { a1: " ", a2: " ", a3: " ", b1: " ", b2: " ", b3: " ", c1: " ", c2: " ", c3: " " }
+      @game_state_variable = false
     end
-
-  def victory?
-        
+  
+    def put_token(symbol, i)
+      @boardgame[i] = symbol
+      show_board
+    end
+  
+    def game_state
+      if a1 == "O" && a2 == "O" && a3 == "O" || a1 == "X" && a2 == "X" && a3 == "X"
+        @game_state_variable = true
+      end
+  
+      if b1 == "O" && b2 == "O" && b3 == "O" || b1 == "X" && b2 == "X" && b3 == "X"
+        @game_state_variable = true
+      end
+  
+      if c1 == "O" && c2 == "O" && c3 == "O" || c1 == "X" && c2 == "X" && c3 == "X"
+       @game_state_variable = true
+      end
+  
+      if a1 == "O" && b1 == "O" && c1 == "O" || a1 == "X" && b1 == "X" && c1 == "X"
+        @game_state_variable = true
+      end
+  
+      if a2 == "O" && b2 == "O" && c2 == "O" || a2 == "X" && b2 == "X" && c2 == "X"
+        @game_state_variable = true
+      end
+  
+      if a3 == "O" && b3 == "O" && c3 == "O" || a3 == "X" && b3 == "X" && c3 == "X"
+        @game_state_variable = true
+      end
+  
+      if a1 == "O" && b2 == "O" && c3 == "O" || a1 == "X" && b2 == "X" && c3 == "X"
+        @game_state_variable = true
+      end
+  
+      if a3 == "O" && b2 == "O" && c1 == "O" || a3 == "X" && b2 == "X" && c1 == "X"
+        @game_state_variable = true
+      end
+    end
+  
+  
+    def show_board
+        puts "   1   2   3 "
+        puts "A  #{@boardgame[:a1]} | #{@boardgame[:a2]} | #{@boardgame[:a3]} "
+        puts "  ---+---+---"
+        puts "B  #{@boardgame[:b1]} | #{@boardgame[:b2]} | #{@boardgame[:b3]} "
+        puts "  ---+---+---"
+        puts "C  #{@boardgame[:c1]} | #{@boardgame[:c2]} | #{@boardgame[:c3]} "
+    end
   end
-
-
-
-end
