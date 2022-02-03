@@ -1,64 +1,19 @@
 require_relative 'Player'
 require_relative 'Board'
-#chemin absolu : si je passe mon jeu à mon ami, il doit avoir le même chemin d'accès à mon jeu
-#chemin relative : cherche player par rapport au 1er dossier de mon jeu (à partir de la racine de mon jeu)
 
 class Game
   #TO DO : la classe a plusieurs attr_accessor: le current_player (égal à un objet Player), le status (en cours, nul ou un objet Player s'il gagne), le Board et un array contenant les 2 joueurs.
   attr_accessor :joueur1, :joueur2, :board
-  attr_accessor :sablier, :sabliermax
+  attr_accessor :timer, :timermax
 
-  def initialize
+#--------------------------------------------------------------------------------------------
 
-    @board = Board.new
-
-    @joueur1 = Player.new("X") # il faut mettre un @ à joueur1 dans mes méthodes si c'est un attr_Accessor
-
-    @joueur2 = Player.new("O")
-
-    @sablier = 1
-    @sabliermax = 6
-
-  end
-
-  def turn
-    first_presentation
-    game_loop = true # début de boucle
-    while game_loop && @board.game_state_variable == false
-      puts "ROUND N°#{sablier} "
-      play_turn(@joueur1.symbol)
-      play_turn(@joueur2.symbol)
-      @sablier +=1
-      if @sablier == @sabliermax || @board.game_state_variable == true
-        game_loop = false #fin de boucle avec le false
-        puts "Match nul"
-      end
-    end
-  end
-
-  def new_round
-    new_game_loop = false
-    play_turn(@joueur1.symbol)
-    play_turn(@joueur2.symbol)
-    new_game_loop
-  end
-
-  def play_turn(symbol) #le joueur choisi dans quelle case il veut mettre son symbole
-    puts "Dans quelle case veux-tu jouer (par exemple: a1)?"
-    coordonnee = gets.chomp.downcase.to_sym
-    @board.put_token(symbol, coordonnee)
-  end
-
-
-  def game_end
-    # TO DO : permet l'affichage de fin de partie quand un vainqueur est détecté ou si il y a match nul
-  end
 
   def first_presentation
     puts "--------------------------------------------------------"
     puts "\n"
     puts "\n"
-    puts "BIENVENUE AU JEU DU MORPION"
+    puts "----------------------BIENVENUE AU JEU DU MORPION----------------"
 
 
     puts "             ...
@@ -99,4 +54,66 @@ class Game
     puts "#{@joueur1.name} commence en premier"
   end
 
+#--------------------------------------------------------------------------------------------
+
+  def initialize
+
+    @board = Board.new
+
+    @joueur1 = Player.new("X") # il faut mettre un @ à joueur1 dans mes méthodes si c'est un attr_Accessor
+
+    @joueur2 = Player.new("O")
+
+    @timer = 1
+    @timermax = 6
+
+  end
+
+#--------------------------------------------------------------------------------------------
+
+
+
+  def turn
+    first_presentation
+    game_loop = true # début de boucle
+    while game_loop && @board.game_state_variable == false
+      puts "ROUND N°#{timer} "
+      play_turn(@joueur1.symbol)
+      play_turn(@joueur2.symbol)
+      @timer +=1
+      if @timer == @timermax || @board.game_state_variable == true
+        game_loop = false #fin de boucle avec le false
+        puts "Match nul"
+      end
+    end
+  end
+
+#--------------------------------------------------------------------------------------------
+
+  def new_round
+    new_game_loop = false
+    play_turn(@joueur1.symbol)
+    play_turn(@joueur2.symbol)
+    new_game_loop
+  end
+
+#--------------------------------------------------------------------------------------------
+
+
+  def play_turn(symbol) #le joueur choisi dans quelle case il veut mettre son symbole
+    puts "Dans quelle case veux-tu jouer (par exemple: a1)?"
+    coordonnee = gets.chomp.downcase.to_sym
+    @board.put_token(symbol, coordonnee)
+  end
+
+  #--------------------------------------------------------------------------------------------
+
+  def game_end
+    # TO DO : permet l'affichage de fin de partie quand un vainqueur est détecté ou si il y a match nul
+  end
+
+ 
+
+
+  
 end
